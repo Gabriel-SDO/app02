@@ -1,26 +1,39 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
+    <ion-menu contentId="main-content" type="overlay" side="end">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
+          <ion-list-header>Game Cadastro</ion-list-header>
+          <ion-note></ion-note>
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" routerLink="/home" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" name="home"></ion-icon>
+              <ion-label>Início</ion-label>
             </ion-item>
           </ion-menu-toggle>
-        </ion-list>
 
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" routerLink="/new" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" name="add-circle"></ion-icon>
+              <ion-label>Novo Game</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
 
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" routerLink="/contacts" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" name="chatbubbles"></ion-icon>
+              <ion-label>Faça Contato</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" routerLink="/about" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" name="information-circle"></ion-icon>
+              <ion-label>Sobre</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
         </ion-list>
       </ion-content>
     </ion-menu>

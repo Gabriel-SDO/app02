@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "app02",
+  "appId": "github.com.gamecadastro",
+  "appName": "Game Cadastro",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
