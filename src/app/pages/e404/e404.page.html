@@ -3,19 +3,20 @@
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">Error 404</ion-title>
+    <ion-title class="ion-text-center">Erro 404</ion-title>
     <ion-icon name="game-controller" slot="start" size="large" class="ion-margin-start" color="success"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding-horizontal">
 
-  <ion-img src="assets/erro.jpg" alt="erro 404"></ion-img>
-
-  <h3>Ooooops!</h3>
+  <h3>Oooops!</h3>
+  <ion-img src="assets/e404.jpg" alt="Erro 404"></ion-img>
   <p>O conteúdo que você está tentando acessar não pode ser encontrado.</p>
-  <p>Use o botão abaixo para retornar ao início</p>
-
-  <ion-button expand="full" routerLink="/home">Home</ion-button>
+  <p>Use o botão abaixo para retornar ao início.</p>
+  <ion-button expand="block" routerLink="/home">
+    <ion-icon name="home" slot="start"></ion-icon>
+    Início
+  </ion-button>
 
 </ion-content>

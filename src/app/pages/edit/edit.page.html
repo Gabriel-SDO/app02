@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Editar Game</ion-title>
+    <ion-icon name="game-controller" slot="start" size="large" class="ion-margin-start" color="success"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-horizontal">
+
+  <div *ngIf="data">
+
+    <p>
+      <ion-text>Altere somente os campos necessários.</ion-text>
+    </p>
+
+    <ion-card class="ion-no-margin ion-margin-vertical">
+      <ion-img src="{{ data.cover }}" alt="Capa de {{ data.title }}"></ion-img>
+      <ion-card-header>
+        <ion-card-title>{{ data.title }}</ion-card-title>
+        <ion-card-subtitle>{{ data.platformName }} - {{ data.media }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ data.description }}</p>
+        <ul>
+          <li><strong>Tipo: </strong>{{ data.typeName }}</li>
+        </ul>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button color="success" expand="block" class="ion-margin-vertical" routerLink="/home/title/asc">Cancelar</ion-button>
+
+  </div>
+
+
+</ion-content>

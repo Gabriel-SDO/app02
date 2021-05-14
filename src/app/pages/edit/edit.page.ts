@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
 // Importa dependências
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { DatePipe } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
   Validators,
   AbstractControl
 } from '@angular/forms';
-import { DatePipe } from '@angular/common';
-import { AlertController } from '@ionic/angular';
 
 // Validação (filtro) personalizado
 // Não permite compos somente com espaços
@@ -20,34 +22,72 @@ export function removeSpaces(control: AbstractControl) {
 }
 
 @Component({
-  selector: 'app-contacts',
-  templateUrl: './contacts.page.html',
-  styleUrls: ['./contacts.page.scss'],
+  selector: 'app-edit',
+  templateUrl: './edit.page.html',
+  styleUrls: ['./edit.page.scss'],
 })
-export class ContactsPage implements OnInit {
+export class EditPage implements OnInit {
 
   // Atributos
-  public contactForm: FormGroup;        // Cria o formulário
+  private id: string;
+  public apiURL = 'http://localhost:3000/';
+  public data: Array<any> = [];
+  public editForm: FormGroup;        // Cria o formulário
   public pipe = new DatePipe('en_US');  // Formatador de datas
 
   constructor(
 
     // Injeta dependências
-    public form: FormBuilder,
-    public alert: AlertController
+    public activatedRoute: ActivatedRoute,
+    public http: HttpClient,
+    public router: Router,
+    public alertController: AlertController,
+    public form: FormBuilder
   ) { }
 
   ngOnInit() {
 
-    // Cria os campos do formulário
-    this.contactFormCreate();
-    
+    // Obtém o ID do documento a ser apagado
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+
+    // Obtem todos os documentos da API
+    this.http.get(this.apiURL + `games/${this.id}`)
+      .subscribe(
+        (res: any) => {
+
+          // Obtém a plataforma do game
+          this.http.get(this.apiURL + 'platforms/' + res.platform)
+            .subscribe(
+              (platformData: any) => {
+                res['platformName'] = platformData.name;
+              }
+            );
+
+          // Obtém o tipo do game
+          this.http.get(this.apiURL + 'types/' + res.type)
+            .subscribe(
+              (typeData: any) => {
+                res['typeName'] = typeData.name;
+              }
+            );
+
+          // Cria os campos do formulário
+          this.editFormCreate();
+
+        },
+        (error) => {
+
+          // Retorna para a lista de games
+          this.router.navigate(['/home/title/asc']);
+        });
   }
 
-  // Cria os campos do formulário
-  contactFormCreate() {
+/////////////////////////////////////////////////////////////////
 
-    this.contactForm = this.form.group({
+  // Cria os campos do formulário
+  editFormCreate() {
+
+    this.editForm = this.form.group({
 
       // Data de envio (date)
       date: [''],
@@ -56,7 +96,7 @@ export class ContactsPage implements OnInit {
       status: ['Enviado'],
 
       // Nome do remetente (name)
-      name: [                       // Nome do campo
+      title: [                       // Nome do campo
         '',                         // Valor inicial do campo
         Validators.compose([        // Valida o campo
           Validators.required,      // Campo é obrigatório
@@ -73,7 +113,7 @@ export class ContactsPage implements OnInit {
           Validators.email,         // Deve ser um e-mail válido
           removeSpaces              // Remove espaços duplicados
         ])
-      ], 
+      ],
 
       // Assunto do contato (subject)
       subject: [                    // Nome do campo
@@ -97,43 +137,18 @@ export class ContactsPage implements OnInit {
     });
   };
 
-  // Processa e envia o formulário para o databse
-  contactSend() {
-
-    // Gera e formata a data de envio
-    this.contactForm.controls.date.setValue(
-      this.pipe.transform(Date.now(), 'yyyy-MM-dd HH:mm:ss')
-    );
-
-    // Salvar dados na API REST...
-    this.feedback();
-
-    return false;
-  }
-
-  // Popup de feedback
-  async feedback() {
-
-    // Obtém somente primeiro nome do remetente
-    var name = this.contactForm.controls.name.value.split(' ');
-
-    const alert = await this.alert.create({
-      header: `Olá ${name[0]}!`,
-      message: 'Seu contato foi enviado com sucesso para a equipe do aplicativo.',
-      buttons : [
-
-        // Botão [Ok]
+  // Caixa de alerta
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      header: 'Concluído',
+      message: 'Jogo apagado com sucesso!',
+      buttons: [
         {
           text: 'Ok',
           handler: () => {
 
-            // Reset do formulário
-            this.contactForm.reset({
-
-              // Mantém o nome e e-mail do rementente
-              name: this.contactForm.controls.name.value,
-              email: this.contactForm.controls.email.value
-            });
+            // Volta para a lista de jogos
+            this.router.navigate(['/home/title/asc']);
           }
         }
       ]
