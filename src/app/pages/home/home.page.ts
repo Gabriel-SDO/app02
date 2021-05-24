@@ -4,6 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 
+//
+import { AngularFireAuth } from '@angular/fire/auth';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -16,14 +19,25 @@ export class HomePage implements OnInit {
   public data: Array<any> = [];
   public sort = 'title';
   public order = 'asc';
+  public uid: string;
 
   constructor(
 
     // Injeta dependências
     public http: HttpClient,
     public activatedRoute: ActivatedRoute,
-    public router: Router
-  ) { }
+    public router: Router,
+
+    //
+    public auth: AngularFireAuth
+  ) {
+
+    this.auth.onAuthStateChanged(
+      (uData) => {
+        this.uid = uData.uid;
+      }
+    );
+  }
 
   ngOnInit() { }
 
@@ -33,39 +47,23 @@ export class HomePage implements OnInit {
     this.sort = this.activatedRoute.snapshot.paramMap.get('sort');
     this.order = this.activatedRoute.snapshot.paramMap.get('order');
 
-    // Obtem todos os documentos da API
-    this.http.get(this.apiURL + `games?_sort=${this.sort}&_order=${this.order}&status=ativo`)
-      .subscribe(
-        (res: any) => {
+    // Obtém dados do usuário logado
 
-          // Obtém cada documento de games
-          res.forEach(
-            (item: any, key: number) => {
+    if (this.uid) {
 
-              // Obtém a plataforma do game
-              this.http.get(this.apiURL + 'platforms/' + item.platform)
-                .subscribe(
-                  (platformData: any) => {
-                    res[key]['platformName'] = platformData.name;
-                  }
-                );
+      // Obtem todos os documentos da API
+      this.http.get(
+        this.apiURL
+        + `games?uid=${this.uid}&_expand=medias&_expand=platforms&_expand=types&_sort=${this.sort}&_order=${this.order}`)
+        .subscribe(
+          (res: any) => {
 
-              // Obtém o tipo do game
-              this.http.get(this.apiURL + 'types/' + item.type)
-                .subscribe(
-                  (typeData: any) => {
-                    res[key]['typeName'] = typeData.name;
-                  }
-                );
-            }
-          );
-
-          // Prepara dados para a view (HTML)
-          this.data = res;
-        }
-      );
+            // Prepara dados para a view (HTML)
+            this.data = res;
+          }
+        );
+    }
   }
-
 
   // Seleciona o campo de ordenação e a ordem (asc, desc)
   reOrder(order: string) {

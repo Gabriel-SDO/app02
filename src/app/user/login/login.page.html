@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Entrar / Login</ion-title>
+    <ion-icon name="game-controller" slot="start" size="large" class="ion-margin-start" color="success"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-horizontal">
+
+  <div class="ion-text-center ion-margin-top">
+    <ion-icon name="game-controller" class="page-icon"></ion-icon>
+    <h1 class="ion-no-margin">Game Cadastro</h1>
+  </div>
+
+  <p>Você precisa se logar para usar todos os recursos do aplicativo.</p>
+  <p>
+    <ion-button color="primary" expand="block" (click)="login()">
+      <ion-icon name="logo-google" slot="start"></ion-icon>
+      Logue-se com o Google
+    </ion-button>
+  </p>
+
+</ion-content>

@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/about"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-center">Sobre</ion-title>
+    <ion-icon name="game-controller" slot="start" size="large" class="ion-margin-start" color="success"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-horizontal" *ngIf="data">
+
+  <h2>{{ data.title }}</h2>
+  <div innerHTML="{{ data.text }}"></div>
+  <p>
+    <ion-button color="primary" size="block" routerLink="/about">Voltar para Sobre</ion-button>
+  </p>
+
+</ion-content>

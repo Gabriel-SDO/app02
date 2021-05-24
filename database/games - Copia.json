@@ -1,0 +1,92 @@
+{
+  "platforms": [
+    {
+      "id": "2",
+      "name": "Super Nintendo"
+    },
+    {
+      "id": "3",
+      "name": "Playstation 2"
+    },
+    {
+      "id": "4",
+      "name": "Playstation 4"
+    },
+    {
+      "id": "5",
+      "name": "Xbox 360"
+    }
+  ],
+  "types": [
+    {
+      "id": "4",
+      "name": "Plataforma"
+    },
+    {
+      "id": "6",
+      "name": "Corrida de rua"
+    },
+    {
+      "id": "7",
+      "name": "Tiro em 1ª pessoa"
+    }
+  ],
+  "medias": [
+    {
+      "id": "1",
+      "name": "DVD"
+    },
+    {
+      "id": "2",
+      "name": "Cartucho"
+    }
+  ],
+	"games": [
+		{
+			"id": "1",
+			"date": "2021-05-12 08:05:00",
+			"cover": "https://images-na.ssl-images-amazon.com/images/I/91KsZIbIVjL.jpg",
+			"title": "Sonic the Hedgehog",
+			"media": "1",
+			"platform": "4",
+			"type": "4",
+			"description": "Eterno e consagrado Sonic. Não precisa falar mais nada.",
+			"status": "true"
+		},
+		{
+			"id": "2",
+			"date": "2021-05-12 09:35:15",
+			"cover": "https://i.pinimg.com/originals/20/21/c0/2021c0c7dd4b7970022ca809d407f635.png",
+			"title": "Super Mário 3",
+			"media": "2",
+			"platform": "2",
+			"type": "4",
+			"description": "Assim como Sonic, não é necessário descrever Super Mário",
+			"status": "true"
+		},
+		{
+			"id": "3",
+			"date": "2021-05-12 11:45:00",
+			"cover": "https://rubberchickengames.com/wp-content/uploads/2013/03/crysis-3-xbox-3601.jpg",
+			"title": "Crysis 3",
+			"media": "1",
+			"platform": "5",
+			"type": "7",
+			"description": "Shooter de alto nível com excelente qualidade gráfica e jogabilidade.",
+			"status": "true"
+		},
+		{
+			"id": "4",
+			"date": "2021-05-12 14:10:00",
+			"cover": "https://images-na.ssl-images-amazon.com/images/I/515XGZPHV7L._AC_.jpg",
+			"title": "Need For Speed Carbon",
+			"media": "1",
+			"platform": "3",
+			"type": "6",
+			"description": "Continuação da famosa franquia de corridas de rua.",
+			"status": "true"
+		}	
+	],
+
+  "contacts": []
+}

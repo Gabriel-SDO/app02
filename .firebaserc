@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "primeiro-projeto-fc501": {
+      "hosting": {
+        "app": [
+          "primeiro-projeto-fc501"
+        ]
+      }
+    }
+  }
+}

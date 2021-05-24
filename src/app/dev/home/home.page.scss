@@ -1,0 +1,14 @@
+.home_button {
+    text-align: center;
+    color: white;
+    background: black;
+    padding: .5rem;
+    border-radius: .5rem;
+    cursor: pointer;
+    border: 1px solid grey;
+}
+
+.home_button:hover {
+    color: black;
+    background: white;
+}

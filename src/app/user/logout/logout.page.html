@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Sair / Logout</ion-title>
+    <ion-icon name="game-controller" slot="start" size="large" class="ion-margin-start" color="success"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-horizontal">
+
+  <p class="ion-text-center">
+    <ion-icon name="log-out" color="primary" style="font-size: 4rem"></ion-icon>
+  </p>
+  <p>Clique no botão abaixo para confirmar a saída do aplicativo.</p>
+
+  <ion-button expand="block" color="danger" (click)="logout()">
+    <ion-icon name="log-out" slot="start"></ion-icon>
+    Sair / Logout
+  </ion-button>
+
+</ion-content>

@@ -48,12 +48,12 @@
       <ion-img src="{{ game.cover }}" alt="Capa de {{ game.title }}"></ion-img>
       <ion-card-header>
         <ion-card-title>{{ game.title }}</ion-card-title>
-        <ion-card-subtitle>{{ game.platformName }} - {{ game.media }}</ion-card-subtitle>
+        <ion-card-subtitle>{{ game.platforms.name }} - {{ game.medias.name }}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
         <p>{{ game.description }}</p>
         <ul>
-          <li><strong>Tipo: </strong>{{ game.typeName }}</li>
+          <li><strong>Tipo: </strong>{{ game.types.name }}</li>
         </ul>
         <ion-grid>
           <ion-row>

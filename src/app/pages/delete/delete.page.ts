@@ -31,7 +31,7 @@ export class DeletePage implements OnInit {
     // Obtém o ID do documento a ser apagado
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
 
-    // Obtem todos os documentos da API
+    // Obtem o documento da API conforme o Id acima
     this.http.get(this.apiURL + `games/${this.id}`)
       .subscribe(
         (res: any) => {
@@ -52,7 +52,7 @@ export class DeletePage implements OnInit {
               }
             );
 
-          // Envia dados do documento obtido para a API
+          // Envia dados do documento obtido para a view
           this.data = res;
         },
         (error) => {
@@ -65,7 +65,9 @@ export class DeletePage implements OnInit {
   // Apaga documento de forma permanente
   delete(id: string) {
 
-    this.http.delete(this.apiURL + `games/${this.id}`)
+    this.data['status'] = 'false';
+
+    this.http.put(this.apiURL + `games/${this.id}`, this.data)
       .subscribe(
         () => {
 
@@ -84,7 +86,7 @@ export class DeletePage implements OnInit {
         {
           text: 'Ok',
           handler: () => {
-            
+
             // Volta para a lista de jogos
             this.router.navigate(['/home/title/asc']);
           }

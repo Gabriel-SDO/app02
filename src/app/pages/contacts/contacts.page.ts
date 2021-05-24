@@ -10,6 +10,8 @@ import {
 import { DatePipe } from '@angular/common';
 import { AlertController } from '@ionic/angular';
 
+import { HttpClient } from '@angular/common/http';
+
 // Validação (filtro) personalizado
 // Não permite compos somente com espaços
 export function removeSpaces(control: AbstractControl) {
@@ -18,6 +20,8 @@ export function removeSpaces(control: AbstractControl) {
   }
   return null;
 }
+
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-contacts',
@@ -29,19 +33,33 @@ export class ContactsPage implements OnInit {
   // Atributos
   public contactForm: FormGroup;        // Cria o formulário
   public pipe = new DatePipe('en_US');  // Formatador de datas
+  public apiURL = 'http://localhost:3000/'; // URL da API
 
   constructor(
 
     // Injeta dependências
     public form: FormBuilder,
-    public alert: AlertController
+    public alert: AlertController,
+    public http: HttpClient,
+    public auth: AngularFireAuth
   ) { }
 
   ngOnInit() {
 
     // Cria os campos do formulário
     this.contactFormCreate();
-    
+
+    // Preenche nome e email se usuário está logado
+    if (this.contactForm) {
+      this.auth.onAuthStateChanged(
+        (userData) => {
+          if(userData) {
+            this.contactForm.controls.name.setValue(userData.displayName.trim());
+            this.contactForm.controls.email.setValue(userData.email.trim());
+          }
+        }
+      );
+    }
   }
 
   // Cria os campos do formulário
@@ -73,7 +91,7 @@ export class ContactsPage implements OnInit {
           Validators.email,         // Deve ser um e-mail válido
           removeSpaces              // Remove espaços duplicados
         ])
-      ], 
+      ],
 
       // Assunto do contato (subject)
       subject: [                    // Nome do campo
@@ -106,8 +124,20 @@ export class ContactsPage implements OnInit {
     );
 
     // Salvar dados na API REST...
-    this.feedback();
+    this.http.post(this.apiURL + 'contacts', this.contactForm.value).subscribe(
+      (res: any) => {
+        if (res) {
 
+          // EXibe feedback
+          this.feedback();
+
+        }
+      }, (error: string) => {
+        console.error(`Erro ao salvar na API: ${error}`);
+      }
+    );
+
+    // Termina sem fazer mais nada
     return false;
   }
 
@@ -120,7 +150,7 @@ export class ContactsPage implements OnInit {
     const alert = await this.alert.create({
       header: `Olá ${name[0]}!`,
       message: 'Seu contato foi enviado com sucesso para a equipe do aplicativo.',
-      buttons : [
+      buttons: [
 
         // Botão [Ok]
         {
@@ -132,7 +162,8 @@ export class ContactsPage implements OnInit {
 
               // Mantém o nome e e-mail do rementente
               name: this.contactForm.controls.name.value,
-              email: this.contactForm.controls.email.value
+              email: this.contactForm.controls.email.value,
+              status: 'Enviado'
             });
           }
         }

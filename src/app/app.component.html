@@ -7,7 +7,8 @@
           <ion-note></ion-note>
 
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" routerLink="/home/title/asc" lines="none" detail="false" routerLinkActive="selected">
+            <ion-item routerDirection="root" routerLink="/home/title/asc" lines="none" detail="false"
+              routerLinkActive="selected">
               <ion-icon slot="start" name="home"></ion-icon>
               <ion-label>Início</ion-label>
             </ion-item>
@@ -21,16 +22,26 @@
           </ion-menu-toggle>
 
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" routerLink="/contacts" lines="none" detail="false" routerLinkActive="selected">
+            <ion-item routerDirection="root" routerLink="/contacts" lines="none" detail="false"
+              routerLinkActive="selected">
               <ion-icon slot="start" name="chatbubbles"></ion-icon>
               <ion-label>Faça Contato</ion-label>
             </ion-item>
           </ion-menu-toggle>
 
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" routerLink="/about" lines="none" detail="false" routerLinkActive="selected">
+            <ion-item routerDirection="root" routerLink="/about" lines="none" detail="false"
+              routerLinkActive="selected">
               <ion-icon slot="start" name="information-circle"></ion-icon>
               <ion-label>Sobre</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle auto-hide="false" *ngIf="auth.user | async as user;">
+            <ion-item routerDirection="root" routerLink="/user/logout" lines="none" detail="false"
+              routerLinkActive="selected">
+              <ion-icon slot="start" name="log-out"></ion-icon>
+              <ion-label>Sair / Logout</ion-label>
             </ion-item>
           </ion-menu-toggle>
 

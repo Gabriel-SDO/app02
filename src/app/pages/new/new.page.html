@@ -3,15 +3,118 @@
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">Novo Game</ion-title>
+    <ion-title class="ion-text-center">Cadastrar Game</ion-title>
     <ion-icon name="game-controller" slot="start" size="large" class="ion-margin-start" color="success"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding-horizontal">
 
-  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore distinctio saepe, aut recusandae nemo quasi
-    dignissimos velit libero in aliquid tenetur reiciendis at eligendi sequi dolor explicabo, ullam officiis molestiae.
-  </p>
+  <p>Preencha os campos para inserir um novo jogo.</p>
+
+  <form [formGroup]="newForm" (ngSubmit)="newSend()">
+
+    <ion-list lines="full" class="ion-no-margin">
+
+      <ion-item>
+        <ion-label position="floating" color="primary">
+          Título:
+
+          <!-- Exibe feedback da validação -->
+          <ion-text color="danger" *ngIf="newForm.controls.title.errors">
+            <small *ngIf="newForm.controls.title.errors.required">* Obrigatório</small>
+            <small *ngIf="newForm.controls.title.errors.minlength">* Inválido</small>
+          </ion-text>
+
+        </ion-label>
+        <ion-input type="text" name="title" id="title" formControlName="title"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="primary">
+          URL da Capa do Jogo:
+
+          <!-- Exibe feedback da validação -->
+          <ion-text color="danger" *ngIf="newForm.controls.cover.errors">
+            <small *ngIf="newForm.controls.cover.errors.required">* Obrigatório</small>
+            <small *ngIf="newForm.controls.cover.errors.minlength">* Inválido</small>
+          </ion-text>
+
+        </ion-label>
+        <ion-input type="text" name="cover" id="cover" formControlName="cover"></ion-input>
+      </ion-item>
+
+      <ion-button size="small" expand="block" color="warning" (click)="openGoogle(newForm.controls.title.value)">Pesquisar no Google</ion-button>
+
+      <ion-item>
+        <ion-label position="floating" color="primary">
+          Data de aquisição:
+          <ion-text color="danger" *ngIf="newForm.controls.date.errors">
+            <small *ngIf="newForm.controls.date.errors.required">* Obrigatório</small>
+            <small *ngIf="newForm.controls.date.errors.minlength">* Inválido</small>
+          </ion-text>
+        </ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" name="date" id="date" formControlName="date"
+          cancel-text="Cancelar" done-text="Ok"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="primary">
+          Tipo do Jogo:
+          <ion-text color="danger" *ngIf="newForm.controls.typesId.errors">
+            <small *ngIf="newForm.controls.typesId.errors.required">* Obrigatório</small>
+            <small *ngIf="newForm.controls.typesId.errors.minlength">* Inválido</small>
+          </ion-text>
+        </ion-label>
+        <ion-select name="typesId" id="typesId" formControlName="typesId" interface="popover">
+          <ion-select-option *ngFor="let type of types" [value]="type.id">{{type.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="primary">
+          Plataforma:
+          <ion-text color="danger" *ngIf="newForm.controls.platformsId.errors">
+            <small *ngIf="newForm.controls.platformsId.errors.required">* Obrigatório</small>
+            <small *ngIf="newForm.controls.platformsId.errors.minlength">* Inválido</small>
+          </ion-text>
+        </ion-label>
+        <ion-select name="platformsId" id="platformsId" formControlName="platformsId" interface="popover">
+          <ion-select-option *ngFor="let platform of platforms" [value]="platform.id">{{platform.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="primary">
+          Tipo de mídia:
+          <ion-text color="danger" *ngIf="newForm.controls.mediasId.errors">
+            <small *ngIf="newForm.controls.mediasId.errors.required">* Obrigatório</small>
+            <small *ngIf="newForm.controls.mediasId.errors.minlength">* Inválido</small>
+          </ion-text>
+        </ion-label>
+        <ion-select name="mediasId" id="mediasId" formControlName="mediasId" interface="popover">
+          <ion-select-option *ngFor="let media of medias" [value]="media.id">{{media.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="primary">
+          Descrição:
+          <ion-text color="danger" *ngIf="newForm.controls.description.errors">
+            <small *ngIf="newForm.controls.description.errors.required">* Obrigatório</small>
+            <small *ngIf="newForm.controls.description.errors.minlength">* Inválido</small>
+          </ion-text>
+
+        </ion-label>
+        <ion-textarea name="description" autoGrow="true" id="description" formControlName="description"></ion-textarea>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-button type="submit" expand="block" class="ion-margin-vertical" [disabled]="newForm.invalid">Salvar Alterações
+    </ion-button>
+
+  </form>
 
 </ion-content>

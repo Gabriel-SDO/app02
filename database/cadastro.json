@@ -1,0 +1,32 @@
+{
+  "usuarios": [
+    {
+      "nome": "Joca de Souza",
+      "email": "joca@silva.com",
+      "senha": "123456",
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "nome": "Setrembina Trocatapas",
+      "email": "setembrina@troca.com",
+      "senha": "12345"
+    },
+    {
+      "id": "3",
+      "nome": "Tami Ralando",
+      "email": "tami@ralando.com",
+      "senha": "12345"
+    },
+    {
+      "nome": "Marieva Sales",
+      "email": "marieva@sales.com",
+      "senha": "123123",
+      "id": "HozMKBu",
+      "preferencias" : [
+          {"revista":"Época"},
+          {"cor":"Azul"}
+      ]
+    }
+  ]
+}
